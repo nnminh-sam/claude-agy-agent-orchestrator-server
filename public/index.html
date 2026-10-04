@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude-AGY Orchestrator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232a78d6'/%3E%3Cpath d='M9 22l7-13 7 13' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span>Claude-AGY</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#/" data-tab="overview">Overview</a>
+      <a href="#/agents" data-tab="agents">Agents</a>
+      <a href="#/runs" data-tab="runs">Runs</a>
+      <a href="#/testcases" data-tab="testcases">Testcases</a>
+      <a href="#/usage" data-tab="usage">Usage</a>
+      <a href="#/quota" data-tab="quota">Quota</a>
+      <a href="#/conversations" data-tab="conversations">Conversations</a>
+    </nav>
+    <button class="btn primary" id="new-task" type="button">New task</button>
+  </header>
+  <main id="view" aria-live="polite"></main>
+
+  <dialog id="task-dialog">
+    <form id="task-form" method="dialog">
+      <h2>Delegate a task to Antigravity</h2>
+      <label>Task<textarea name="prompt" rows="8" required placeholder="Goal, context, constraints, acceptance criteria…"></textarea></label>
+      <div class="grid2">
+        <label>Workspace directory<input name="cwd" required spellcheck="false"></label>
+        <label>Label<input name="label" maxlength="120" placeholder="optional"></label>
+        <label>Model<select name="model"><option value="">agy default</option></select></label>
+        <label>Effort<select name="effort"><option value="">default</option><option>low</option><option>medium</option><option>high</option><option>xhigh</option><option>max</option></select></label>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" name="plan"> Plan only (no edits)</label>
+        <label><input type="checkbox" name="sandbox"> Sandbox terminal commands</label>
+        <label id="yolo-row" hidden><input type="checkbox" name="yolo"> Skip permission prompts</label>
+      </div>
+      <p class="form-error" id="task-error" role="alert"></p>
+      <div class="actions">
+        <button class="btn" value="cancel" formnovalidate>Cancel</button>
+        <button class="btn primary" id="task-submit" value="submit">Start agent</button>
+      </div>
+    </form>
+  </dialog>
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
